@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Contact List</title>
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+        <link rel="stylesheet" type="text/css" href="css/style.css" />
+    </head>
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="col-3">
+                  </div>
+                  <div class="col-6">
+                    <form id='contact-form' action="#" class="form-control add-form">
+                        <div class="form-group">
+                          <input type="text" class="form-control" id="input-name" placeholder="Name">
+                        </div>
+                        <div class="form-group">
+                          <input type="text" class="form-control" id="input-phone" placeholder="Phone">
+                        </div>
+                        <div class="form-group">
+                          <input type="text" class="form-control" id="input-email" placeholder="jonh@example.com">
+                        </div>
+                        <button type="submit" value="" id="button-submit" class="btn btn-success btn-lg btn-block">Save</button>
+                      </form>
+                  </div>
+                  <div class="col-3">
+                  </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <table id="list-contact" class="table table-striped">
+                        <thead>
+                          <tr>
+                            <th scope="col">No</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Phone</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Date</th>
+                            <th width="15%" scope="col"></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                      </table>
+                </div>
+            </div>
+        </div>
+
+        <script type="text/javascript" src="js/script.js"></script>
+    </body>
+</html>
