@@ -33,7 +33,7 @@ const SubmitData = (event) => {
 
 const SaveContact = (inputData) => {
   const inputDatas = [inputData, ...GetDataObjectFromStorage()];
-  localStorage.setItem("inputDatas", JSON.stringify(inputDatas));
+  localStorage.setItem("contactsInfo", JSON.stringify(inputDatas));
 };
 
 const UpdateContact = (inputData) => {
@@ -45,18 +45,17 @@ const UpdateContact = (inputData) => {
 
     return contact;
   });
-  localStorage.setItem("inputDatas", JSON.stringify(contactsUpdated));
+  localStorage.setItem("contactsInfo", JSON.stringify(contactsUpdated));
   RenderListContact();
 };
 
-const RemoveContact = (event) => {
-  let id = event.target.value;
+const RemoveContact = (id) => {
   let contacts = GetDataObjectFromStorage();
   let contacstAfterRemove = contacts.filter((contact) => {
-    return contact.id !== id;
+    return contact.id !== id.toString();
   });
 
-  localStorage.setItem("inputDatas", JSON.stringify(contacstAfterRemove));
+  localStorage.setItem("contactsInfo", JSON.stringify(contacstAfterRemove));
   RenderListContact();
 };
 
@@ -67,35 +66,28 @@ const RenderListContact = () => {
     .getElementsByTagName("tbody")[0];
   tbody.innerHTML = "";
   contacts.forEach((contact, key) => {
-    tbody.insertRow().innerHTML =
-      "<th scope='row'>" +
-      (key + 1).toString() +
-      "</th>" +
-      "<td>" +
-      contact.name +
-      "</td>" +
-      "<td>" +
-      contact.phone +
-      "</td>" +
-      "<td>" +
-      contact.email +
-      "</td>" +
-      "<td>" +
-      contact.date +
-      "</td>" +
-      "<td>" +
-      "<button value='" +
-      JSON.stringify(contact) +
-      "' class='btn btn-success' type='button'  onClick='GetEditData(event)'>Edit</button> " +
-      "<button class='btn btn-danger' value='" +
-      contact.id +
-      "' type='button' onClick='RemoveContact(event)'> Delete </button>";
-    ("</td>");
+    tbody.innerHTML += RenderTableRow(contact, key);
   });
 };
 
-const GetEditData = (event) => {
-  let contact = JSON.parse(event.target.value);
+const RenderTableRow = (contact, key) => {
+  return (
+    `<tr>
+      <th>${key}</th>
+      <td>${contact.name}</td>
+      <td>${contact.phone}</td>
+      <td>${contact.email}</td>
+      <td>${contact.date}</td>
+      <td>
+        <button class='btn btn-success' type='button'  onClick='GetEditData(${JSON.stringify(contact)})'>Edit</button>
+        <button class='btn btn-danger' type='button' onClick='RemoveContact(${contact.id})'> Delete </button>
+      </td>
+    </tr>
+    `
+  );
+};
+
+const GetEditData = (contact) => {
   document.getElementById("input-name").value = contact.name;
   document.getElementById("input-phone").value = contact.phone;
   document.getElementById("input-email").value = contact.email;
@@ -103,7 +95,7 @@ const GetEditData = (event) => {
 };
 
 const GetDataObjectFromStorage = () => {
-  let inputObjectString = localStorage.getItem("inputDatas");
+  let inputObjectString = localStorage.getItem("contactsInfo");
   if (inputObjectString == null) {
     inputObjectString = "[]";
   }
