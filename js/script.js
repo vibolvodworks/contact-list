@@ -71,20 +71,22 @@ const RenderListContact = () => {
 };
 
 const RenderTableRow = (contact, key) => {
-  return (
-    `<tr>
-      <th>${key}</th>
+  return `<tr>
+      <th>${key + 1}</th>
       <td>${contact.name}</td>
       <td>${contact.phone}</td>
       <td>${contact.email}</td>
       <td>${contact.date}</td>
       <td>
-        <button class='btn btn-success' type='button'  onClick='GetEditData(${JSON.stringify(contact)})'>Edit</button>
-        <button class='btn btn-danger' type='button' onClick='RemoveContact(${contact.id})'> Delete </button>
+        <button class='btn btn-success' type='button'  onClick='GetEditData(${JSON.stringify(
+          contact
+        )})'>Edit</button>
+        <button class='btn btn-danger' type='button' onClick='RemoveContact(${
+          contact.id
+        })'> Delete </button>
       </td>
     </tr>
-    `
-  );
+    `;
 };
 
 const GetEditData = (contact) => {
